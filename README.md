@@ -10,3 +10,5 @@ I will use Local Storage to persist data. I didn't see any reason to make this i
 
 - Dad Jokes API: https://icanhazdadjoke.com/
 - Chuck Norris Joke API: https://api.chucknorris.io/
+
+UI - originally I wanted to use Styled Components but reversed course and added Tailwind so I could get a feel for how design can be done with a framework that purely uses Utility Classes. 
