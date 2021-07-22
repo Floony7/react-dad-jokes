@@ -6,10 +6,8 @@ const ACTIONS = {
   GET_DATA: "get-data",
   ERROR: "error",
 }
-
-const BASE_URL = "https://icanhazdadjoke.com/"
-
-const initialState = { jokes: [], loading: true, error: false }
+// If needed; cors-anywhere.herokuapp.com
+// const BASE_URL = "https://icanhazdadjoke.com/"
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -24,12 +22,29 @@ const reducer = (state, action) => {
   }
 }
 
-export default function useFetchJobs(url, page) {
-  const [state, dispatch] = useReducer(reducer, initialState)
+export default function useFetchJokes(url) {
+  const [state, dispatch] = useReducer(reducer, { jokes: [], loading: true, error: null })
 
   useEffect(() => {
     dispatch({ type: ACTIONS.MAKE_REQUEST })
-    axios.get(BASE_URL)
+    const fetchData = async () => {
+      let jokes = []
+      const limit = 10
+
+      try {
+        while (jokes.length < limit) {
+          const res = await axios.get(url, { headers: { Accept: "application/json" } })
+          jokes.push({ id: res.data.id, text: res.data.joke })
+          dispatch({ type: ACTIONS.GET_DATA, payload: jokes })
+          // jokes.forEach(({ id, text }) => {
+          //   console.log(id, text)
+          // })
+        }
+      } catch (error) {
+        dispatch({ type: ACTIONS.ERROR })
+      }
+    }
+    fetchData()
   }, [url])
 
   return state
