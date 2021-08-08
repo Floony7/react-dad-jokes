@@ -1,5 +1,6 @@
 // import react from "react"
 import JokeList from "./components/jokeList"
+import Navbar from "./components/navbar"
 
 /*
 FEATURES TO ADD:
@@ -12,12 +13,13 @@ Fetching data: https://www.robinwieruch.de/react-hooks-fetch-data
 
 export default function App() {
   return (
-    <div className="flex justify-center items-center bg-red-400">
-      <div className="container mt-4">
+    <div className="flex justify-center items-center bg-red-400 bg-cover h-full">
+      <div className="container mt-6 pb-4">
         <div className="mx-auto">
           <h1 className="text-6xl text-center text-white">Dad Jokes</h1>
-          <p className="text-center pt-3 text-gray-200">Who knew dads were so funny?</p>
+          <h3 className="text-center pt-3 text-gray-100 text-lg">Because lame is a such a subjective term</h3>
         </div>
+        <Navbar />
         <JokeList />
       </div>
     </div>

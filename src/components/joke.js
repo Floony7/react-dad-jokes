@@ -1,5 +1,4 @@
 import React from "react"
-import styled from "styled-components"
 
 // const Item = styled.li`
 //   padding: 5px;
@@ -23,10 +22,11 @@ import styled from "styled-components"
 //   width: 25%;
 // `
 
-const Joke = ({ text, key }) => {
+const Joke = ({ text, id, votes, upvote, downvote }) => {
   return (
-    <li key={key} className="border-b-2 py-2 px-2 border-opacity-60 max-w-full cursor-pointer hover:bg-blue-300">
-      {text}
+    <li key={id} className="joke border-b-2 py-2 px-2 border-opacity-80 max-w-full cursor-pointer hover:bg-red-300">
+      <div className="joke-text">{text}</div>
+      <div className="joke-vote"></div>
     </li>
   )
 }

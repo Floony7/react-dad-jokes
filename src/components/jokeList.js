@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
+import { v4 as uuidv4 } from "uuid"
 import Joke from "./joke"
 
 const BASE_URL = "https://icanhazdadjoke.com/"
@@ -18,7 +19,7 @@ export default function JokeList() {
       try {
         while (jokes.length < limit) {
           const res = await axios.get(BASE_URL, { headers: { Accept: "application/json" } })
-          jokes.push({ id: res.data.id, text: res.data.joke, votes: 0 })
+          jokes.push({ id: uuidv4(), text: res.data.joke, votes: 0 })
         }
         setData(jokes)
         setLoading(false)
@@ -30,6 +31,11 @@ export default function JokeList() {
     fetchData()
   }, [])
 
+  const handleVote = (id, change) => {
+    const votedJokes = [...data].map((j) => (j.id === id ? { ...j, votes: j.votes + change } : j))
+    setData(votedJokes)
+  }
+
   return (
     <div className="w-8/12 mx-auto my-5 rounded-lg mt-5 md:flex bg-gray-50 bg-opacity-70">
       {error && <p>Something went wrong, try refreshing the page.</p>}
@@ -38,7 +44,7 @@ export default function JokeList() {
       ) : (
         <ul>
           {data.map((j) => (
-            <Joke key={j.id} text={j.text} votes={j.votes} />
+            <Joke id={j.id} text={j.text} votes={j.votes} upvote={() => handleVote(j.id, 1)} downvote={() => handleVote(j.id, -1)} />
           ))}
         </ul>
       )}
