@@ -9,7 +9,7 @@ export default function JokeList() {
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
-  const [seenJokes, setSeenJokes] = useState([])
+  // const [seenJokes, setSeenJokes] = useState([])
 
   useEffect(() => {
     setLoading(true)
